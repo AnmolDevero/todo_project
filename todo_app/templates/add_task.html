@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Add Task</h2>
+<form method="POST">
+   {% csrf_token %}
+   
+   <!-- We use <label> and <input> tags to create a form in HTML. 
+   name="title" allows us to access this input value in backend -->
+  <label>Title:</label><br>
+  <input type="text" name="title" required><br><br>  
+  
+  <!-- <input type="text"> is used for one-line input.
+  <textarea> is used for multi-line input -->
+  <label>Description (optional):</label><br>
+  <textarea name="description"></textarea><br><br> 
+  <button type="submit">Add</button>
+</form>
+
+<a href="{% url 'task_list' %}">← Back to list</a>
+{% endblock %}

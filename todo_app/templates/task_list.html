@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
+ <P>Welcome {{request.user.username}}</P>
+{% endif %}
+
+<h2>My To-Do List</h2>
+<a href="{% url 'add_task' %}">Add Task</a>
+<ol>
+  {% for task in tasks %}
+    <li>
+      {{ task.title }}: {{task.description|default:"(No description)"}} <br>
+      <p>Created:{{task.created_at|date:" M d, Y H:i"}} </p> 
+      <p>Updated:{%if task.updated_at %}{{ task.updated_at|date:"M d, y H:i"}}{% endif %} </p> 
+      {% if task.is_completed %}Completed{% else %}Incomplete{% endif %} <br><br>     
+      <a href="{% url 'toggle_task' task.id %}">Toggle</a>
+      <a href="{% url 'edit_task' task.id %}">Edit</a>
+      <a href="{% url 'delete_task' task.id %}">Delete</a> 
+    </li>
+      <hr>
+  {% empty %}
+  <li>No tasks yet.</li>
+  {% endfor %}
+</ol>
+
+<div class="pagination">
+  <span>
+    Page {{tasks.number}}  of  {{tasks.paginator.num_pages}}
+  </span>
+  <div>
+    {% if tasks.has_previous %} 
+    <a href="?page={{tasks.previous_page_number}}">Previous</a>
+    {%endif%}
+  
+    {% for num in tasks.paginator.page_range %}
+      {% if tasks.number == num %}
+      <strong>{{ num }}</strong>
+    
+      {% else %}
+  
+      <a href="?page={{num}}">{{ num }}</a>
+      {%endif%}
+    {%endfor%}
+  
+    {% if tasks.has_next %}
+    <a href="?page={{tasks.next_page_number}}">Next</a> 
+      <hr>
+    {%endif%}
+
+  </div>
+</div>
+<a href="{% url 'delete_acount' %}">Delete My Account</a>
+{% endblock %}
+
+
