@@ -6,24 +6,36 @@
  <P>Welcome {{request.user.username}}</P>
 {% endif %}
 
+
+<form method="GET">
+<input type="text" name="query" placeholder="Search by title" value="{{ request.GET.query }}">
+<button type="submit">Search</button>
+</form>
+
+
 <h2>My To-Do List</h2>
 <a href="{% url 'add_task' %}">Add Task</a>
-<ol>
+
+<ul>
+  {% if tasks %}
   {% for task in tasks %}
-    <li>
-      {{ task.title }}: {{task.description|default:"(No description)"}} <br>
-      <p>Created:{{task.created_at|date:" M d, Y H:i"}} </p> 
-      <p>Updated:{%if task.updated_at %}{{ task.updated_at|date:"M d, y H:i"}}{% endif %} </p> 
-      {% if task.is_completed %}Completed{% else %}Incomplete{% endif %} <br><br>     
-      <a href="{% url 'toggle_task' task.id %}">Toggle</a>
-      <a href="{% url 'edit_task' task.id %}">Edit</a>
-      <a href="{% url 'delete_task' task.id %}">Delete</a> 
-    </li>
-      <hr>
-  {% empty %}
+  <li>
+    {{ task.title }}: {{task.description|default:"(No description)"}} <br>
+    <p>Created:{{task.created_at|date:" M d, Y H:i"}} </p> 
+    <p>Updated:{%if task.updated_at %}{{ task.updated_at|date:"M d, Y H:i"}}{% endif %} </p> 
+    {% if task.is_completed %}Completed{% else %}Incomplete{% endif %} <br><br>     
+        <a href="{% url 'toggle_task' task.id %}">Toggle</a>
+        <a href="{% url 'edit_task' task.id %}">Edit</a>
+        <a href="{% url 'delete_task' task.id %}">Delete</a> 
+      </li>
+        <hr>
+      {% endfor %}  
+  {% elif request.GET.query %}   
+    <li> No results found for {{request.GET.query}} </li>
+  {% else %}
   <li>No tasks yet.</li>
-  {% endfor %}
-</ol>
+  {% endif %}
+</ul>
 
 <div class="pagination">
   <span>
@@ -47,7 +59,7 @@
     {% if tasks.has_next %}
     <a href="?page={{tasks.next_page_number}}">Next</a> 
       <hr>
-    {%endif%}
+    {% endif %}
 
   </div>
 </div>

@@ -12,9 +12,15 @@ from django.core.paginator import Paginator
 def task_list(request):
     # Only fetch tasks that belong to the logged-in user
     tasks = Task.objects.filter (user = request.user).order_by('created_at')
+
+    query = request.GET.get('query')
+    if query:
+        tasks = tasks.filter(title__icontains=query)
+
     paginator = Paginator(tasks,1)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+    
     return render (request, 'task_list.html', {'tasks':page_obj})
     
 # Add a new task
