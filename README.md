@@ -9,7 +9,7 @@ It allows users to sign up, log in, and manage their personal tasks.
 - Mark tasks as complete/incomplete
 - Pagination
 - Account Deletion
-- [More features coming soon...]
+
 
 ## Setup Instructions
 
