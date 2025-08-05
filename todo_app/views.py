@@ -28,10 +28,14 @@ def task_list(request):
 def add_task(request):
     if request.method == 'POST':
         title = request.POST['title']    
-        # Use .get() to avoid error if 'description' is missing; default to ''                 
+        
+        # Use .get() to avoid error if 'description' value is missing; '': returns '' (empty string)  if 'description' fileld is missing, if we frogot in froms etc it will not be shown to user niether come here .             
         description = request.POST.get('description','')
+        
+        due_date = request.POST.get('due_date') 
+         
         # Save task with the current user
-        Task.objects.create(title=title, description=description, user = request.user)
+        Task.objects.create(title=title, description=description, due_date=due_date, user = request.user)
         return redirect ('task_list')
     return render(request, 'add_task.html')
 

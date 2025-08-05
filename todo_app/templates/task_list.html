@@ -23,6 +23,7 @@
     {{ task.title }}: {{task.description|default:"(No description)"}} <br>
     <p>Created:{{task.created_at|date:" M d, Y H:i"}} </p> 
     <p>Updated:{%if task.updated_at %}{{ task.updated_at|date:"M d, Y H:i"}}{% endif %} </p> 
+    <p>Due Date: {{task.due_date|default:"(Not set)"}}</p>
     {% if task.is_completed %}Completed{% else %}Incomplete{% endif %} <br><br>     
         <a href="{% url 'toggle_task' task.id %}">Toggle</a>
         <a href="{% url 'edit_task' task.id %}">Edit</a>
@@ -40,7 +41,7 @@
 <div class="pagination">
   <span>
     Page {{tasks.number}}  of  {{tasks.paginator.num_pages}}
-  </span>
+  </span> 
   <div>
     {% if tasks.has_previous %} 
     <a href="?page={{tasks.previous_page_number}}">Previous</a>
@@ -57,7 +58,7 @@
     {%endfor%}
   
     {% if tasks.has_next %}
-    <a href="?page={{tasks.next_page_number}}">Next</a> 
+    <a href="?page={{tasks.next_page_number}}">Next</a> <br> <br>
       <hr>
     {% endif %}
 
