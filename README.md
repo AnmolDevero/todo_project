@@ -7,7 +7,9 @@ It allows users to sign up, log in, and manage their personal tasks.
 - User signup/login/logout
 - Create, edit, delete tasks
 - Mark tasks as complete/incomplete
+- Search functionality
 - Pagination
+- Change password functionality
 - Account Deletion
 
 
