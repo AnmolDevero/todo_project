@@ -16,6 +16,10 @@ body a{
     border-radius: 4px;
 }
 
+h2{
+    margin-bottom: 8px;
+   
+}
 
 .top-bar {                              
     display: flex;                   
@@ -44,6 +48,11 @@ body a{
 }
 
 
+body hr{
+    margin-bottom: 4px;
+    margin-top: 4px;
+}
+
 
 .pagination {
     margin-top: 6;
@@ -71,7 +80,7 @@ body a{
 
 .pagination span {
   display: block;
-  margin-bottom: 30px;
+  margin-bottom: 5px;
   font-weight: bold;
 }
 
