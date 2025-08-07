@@ -11,6 +11,7 @@ It allows users to sign up, log in, and manage their personal tasks.
 - Pagination
 - Change password functionality
 - Account Deletion
+- Added responsive design for better mobile viewing experience using CSS media queries.
 
 
 ## Setup Instructions
