@@ -76,7 +76,8 @@ def signup_view(request):
         if form.is_valid():
             form.save()
             return redirect('login')
-    form = UserCreationForm()
+    else:
+        form = UserCreationForm()
     return render(request, 'sign_up.html', {'form':form})
 
  
